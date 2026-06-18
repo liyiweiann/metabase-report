@@ -402,6 +402,9 @@ body{background:var(--bg);font-family:var(--font-sans);color:var(--text);font-si
         <span class="icon">🔍</span>
         <input type="text" id="search-input" placeholder="搜索公司ID、行业、省份、客服..." oninput="onSearch()">
       </div>
+      <select class="sort-select" id="filter-cs" onchange="onSearch()" style="min-width:90px;">
+        <option value="">全部客服</option>
+      </select>
       <select class="sort-select" id="sort-col" onchange="onSort()">
         <option value="">排序字段</option>
         <option value="活跃等级">活跃等级</option>
@@ -609,6 +612,10 @@ async function openModal(groupType, groupKey, title) {
   sortDir = 'desc';
   currentPage = 1;
   filteredRows = [...modalRows];
+  // 填充客服下拉
+  const csVals = [...new Set(modalRows.map(r => String(r['客服']||'')).filter(Boolean))].sort();
+  const csEl = document.getElementById('filter-cs');
+  csEl.innerHTML = '<option value="">全部客服</option>' + csVals.map(v => `<option value="${v}">${v}</option>`).join('');
   
   // 控制白名单按钮显示
   document.getElementById('wl-btns').style.display = (currentGroupType === 'metric_down') ? 'inline' : 'none';
@@ -684,8 +691,13 @@ function renderPage() {
 function goPage(p) { currentPage = p; renderPage(); }
 
 function onSearch() {
-  const q = document.getElementById('search-input').value.toLowerCase().trim();
-  filteredRows = q ? modalRows.filter(row => COLS.some(c => String(row[c]||'').toLowerCase().includes(q))) : [...modalRows];
+  const q  = document.getElementById('search-input').value.toLowerCase().trim();
+  const cs = document.getElementById('filter-cs').value;
+  filteredRows = modalRows.filter(row => {
+    if (cs && String(row['客服']||'') !== cs) return false;
+    if (q && !COLS.some(c => String(row[c]||'').toLowerCase().includes(q))) return false;
+    return true;
+  });
   if (sortCol) applySort();
   currentPage = 1;
   renderPage();
