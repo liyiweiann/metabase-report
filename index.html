@@ -93,6 +93,7 @@ body{background:var(--bg);font-family:var(--font-sans);color:var(--text);font-si
 .alert-card{border-radius:var(--radius-md);padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
 .alert-card.danger{background:var(--danger-bg);border:1px solid var(--danger-border);}
 .alert-card.warning{background:var(--warning-bg);border:1px solid var(--warning-border);}
+.alert-card.info{background:var(--info-bg);border:1px solid var(--info-border);}
 .alert-card.success{background:var(--success-bg);border:1px solid var(--success-border);}
 .alert-card .icon{font-size:22px;flex-shrink:0;margin-top:2px;}
 .alert-card .body h4{font-size:14px;font-weight:600;margin-bottom:4px;color:var(--text);}
@@ -100,6 +101,7 @@ body{background:var(--bg);font-family:var(--font-sans);color:var(--text);font-si
 .alert-card .body .action{margin-top:8px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:underline;}
 .alert-card.danger .body .action{color:var(--danger);}
 .alert-card.warning .body .action{color:var(--warning);}
+.alert-card.info .body .action{color:var(--info);}
 .alert-card.success .body .action{color:var(--success);}
 
 /* ===== Modal ===== */
@@ -168,33 +170,33 @@ body{background:var(--bg);font-family:var(--font-sans);color:var(--text);font-si
   <div class="alert-card danger">
     <div class="icon">🔴</div>
     <div class="body">
-      <h4>P1 — 506家客户完全流失</h4>
-      <p>活跃度=0的客户占比21.7%，近30日订单几乎为零，月潜在流失规模约5,000万元。</p>
-      <div class="action" onclick="openModal('zero_active','完全流失客户明细（活跃度=0）')">👉 点击查看流失客户明细</div>
-    </div>
-  </div>
-  <div class="alert-card danger">
-    <div class="icon">🔴</div>
-    <div class="body">
-      <h4>P1 — 下游客户严重沉睡</h4>
-      <p>414万下游客户，近30日仅30.8万活跃（7.42%），大量渠道价值未被激活。</p>
-      <div class="action" onclick="openModal('all','全量客户明细（含下游数据）')">👉 点击查看客户明细</div>
+      <h4>P0 — 完全流失 (510家 · 21.9%)</h4>
+      <p>活跃等级=0，未产生任何活跃行为，需重点排查是否已停止使用系统。</p>
+      <div class="action" onclick="openModal('zero_active','完全流失客户明细（活跃等级=0）')">👉 点击查看流失客户明细</div>
     </div>
   </div>
   <div class="alert-card warning">
     <div class="icon">🟡</div>
     <div class="body">
-      <h4>P2 — 腰部客户增长乏力</h4>
-      <p>等级1~20的414家客户，户均月订单仅约3.5万元，远低于26~30级的169.8万元。</p>
-      <div class="action" onclick="openModal('level','1~5','低等级客户明细（1~5级）')">👉 点击查看低活跃等级明细</div>
+      <h4>P1 — 低活跃客户 (227家 · 9.8%)</h4>
+      <p>活跃等级1~10，处于激活初期或使用频率低，需加强引导与培训。</p>
+      <div class="action" onclick="openModal('all','全量客户明细（按客服筛选低活跃等级）')">👉 点击查看客户明细</div>
+    </div>
+  </div>
+  <div class="alert-card info">
+    <div class="icon">🔵</div>
+    <div class="body">
+      <h4>P2 — 腰部客户 (181家 · 7.8%)</h4>
+      <p>活跃等级11~20，已形成使用习惯但仍有增长空间，可推动升级转化。</p>
+      <div class="action" onclick="openModal('all','全量客户明细（按客服筛选中等活跃等级）')">👉 点击查看客户明细</div>
     </div>
   </div>
   <div class="alert-card success">
     <div class="icon">🟢</div>
     <div class="body">
-      <h4>正向 — 周环比活跃度向好</h4>
-      <p>918家(39.4%)客户活跃度周环比提升，仅182家下降，整体趋势向好。</p>
-      <div class="action" onclick="openModal('act_up','本周活跃度提升客户明细')">👉 点击查看提升客户名单</div>
+      <h4>P3 — 头部客户 (1406家 · 60.5%)</h4>
+      <p>活跃等级21~30，高频使用、深度依赖，是收入基本盘，需重点维护续约。</p>
+      <div class="action" onclick="openModal('all','全量客户明细（按客服筛选高活跃等级）')">👉 点击查看客户明细</div>
     </div>
   </div>
 </div>
